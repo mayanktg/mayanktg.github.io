@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GSoC Report - Reaching the Midterm | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/gsoc-report-reaching-the-midterm/">GSoC Report - Reaching the Midterm</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">June 25 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>Proceeding further the next priority task was to first add a “call disconnect” support to the video call and then it was to remove the auto connecting calls and instead send the notification to the callee whether to Accept/Reject the call.</p>
+<ul>
+<li>For adding the call disconnect support I created a “endCall” menthod in the conversation binding which restores the UI to the normal chat convresation state, stops the ongoing peerconnection and then calls the “endcall()” of the prpl to send the “session-terminate” IQ stanza to the callee. When the callee receives a session-terminate stanza it also does the same excluding the sending the stanza part.</li>
+<li>Now to send call notification I used <code>notificationbox</code> which popups a notification bar to the callee with an “accept” and “reject” button.</li>
+<li>I spent a day improving the UI of the call and using CSS’s <code>calc()</code> to dynamically vary the size instead of using the resizeVideo method I defined earlier, added a close call button and an ongoing call state to the video call button.</li>
+<li>In the meantime :aleth suggested to add a countdown call timer which would disconnect the call automatically on both ends if unanswered for 30 sec. I implemented that too using <code>setTimeout</code> and <code>clearTimeout</code> functions.</li>
+</ul>
+<p>The next milestone is to get the patch ready and also land the generic buttons patch. We are also suppose to add Entity discovery which would enable Video/Voice call iff the compatible device is detected.</p>
+<p>Keeping XMPP Call project aside I worked on the bug to build a generic way to add icons to the toolbar. Plus the best part of this week was that I met Saurabh and Nihanth who are also the other GSoCers @ Instantbird.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=Proceeding further t"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/gsoc-report-reaching-the-midterm/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>and...First XMPP Video Call Was Made | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/and-first-xmpp-video-call-was-made/">and...First XMPP Video Call Was Made</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">June 16 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>Until last week there used to be a harcoded offer and we converted this offer to XML Stanza and then retrieve it back. Moving forward we added the WebRTC methods in the conversation.xml binding which would generate the SDP offer in the DOMWindow. But the problem was, “How will the generated offer reach the prpl?”. The solution was simple but not straight forward, I had to create a method in the interface <code>prplIConvIM</code> so that the method becomes available at the <code>xmpp.jsm</code> too. I followed the standard approach as directed i.e. added a method startCall() in the <conde>prplIConv</conde> interface, set default at <code>jsProtoHelper.jsm</code> and then defined also at <code>prplIConvIM</code> since it was the interface the startCall method in converation binding was going to use. I was able to generate the offer and the client was able to receive and convert the same.</p>
+<p>The startCall method in the conversation binding looked like this</p>
+<p><code>&lt;body&gt;
+    &lt;![CDATA[
+      let conv = this._conv;
+      let fail = function(err) {
+        conv.systemMessage(err);
+      };
+      let pc = this.initPeerConnection();
+      this.getVideo(function() {
+        pc.createOffer(function(offer) {
+          pc.setLocalDescription(offer, function() {
+            conv.startCall(offer.sdp);
+          }, fail);
+        }, fail);
+      }, fail);
+    ]]&gt;
+    &lt;/body&gt;</code></p>
+<p>The initPeerConnection method adds the UI for “localVideo” and “remoteVideo”, creates a <code>mozRTCPeerconenction</code> object and adds stream. getVideo method is used for adding playback stream to localVideo and the <code>createOffer</code> is used to generate the SDP offer. We send the SDP part of the generated offer to prpl using startCall() for conversion to XML Stanza.</p>
+<p>Using <code>notifyObservers()</code> the offer received and converted at the callee’s end is sent to the converastion binding and this offer is then used to generate answer.</p>
+<p>Now I had to repeat the same procedure i.e. use the received SDP offer to create an answer and then again send it to the caller to establish the call. I followed and added createAnswer() which sends the SDP part of the answer to the prpl which then converts it to XML Stanza and send it to caller…and so on.</p>
+<p>When all the above steps is completed and the caller accepts the answer (auto accepting presently), webrtcAnswerCall method is called and the call session is established between the two users. i.e. the video is transmitted! :) You can follow up the whole procedure at the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1018060" target="_blank" rel="external">Bug 1018060: Voice and video call support in XMPP using WebRTC</a></p>
+<p>Next in the priority series is to add call disconnect feature, improve the UI as per the <a href="http://i.imgur.com/UcxFIju.png" target="_blank" rel="external">prototype</a> and add the ability to start a new conversation when making a video call.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=Until last week ther"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/and-first-xmpp-video-call-was-made/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

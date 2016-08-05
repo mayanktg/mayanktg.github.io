@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GSoC Report - Understanding the XEPs and RFCs Maze | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/gsoc-report-understanding-xep-and-rfc-maze/">GSoC Report - Understanding the XEPs and RFCs Maze</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">June 08 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>To send a message from one client to the other we need a signaling channel which provides a path for data transfer over the network. While working with WebRTC PeerConnection API for a web app no one worries about the channel since the SDP (Session Description Protocol) “offer” and “answer” is sent over a plaintext channel. But to implement RTCPeerConnection API for an XMPP account we need to send the message in the form of XML stanza through the Jingle channel. So the caller has to first convert the SDP offer into an XML stanza, send it over Jingle, callee receives the stanza, converts it back to original SDP offer and then repeat the same for his answer to the request.</p>
+<p>Here is how we broke this up and made it the Jingle way.</p>
+<ol>
+<li>The first step was to get the plaintext <a href="http://tools.ietf.org/html/rfc4566.html#section-1" target="_blank" rel="external">SDP offer</a> and understand what each line and of it means, then create a suitable XML IQ Stanza for the same. We then finalized on using the <a href="http://xmpp.org/extensions/xep-0320.html" target="_blank" rel="external">XEP-0320: Use of DTLS-SRTP in Jingle Sessions</a> for creating the appropriate Stanza. We are also dependent on XEPs <a href="http://xmpp.org/extensions/xep-0167.html" target="_blank" rel="external">0167</a>, <a href="http://xmpp.org/extensions/xep-0293.html#sdp-mapping" target="_blank" rel="external">0293</a> and <a href="http://xmpp.org/extensions/xep-0294.html#sdp-mapping" target="_blank" rel="external">0294</a>. It needs a separate blogpost to explain about how the mapping was done as the information though available is sparse. I’ll write one in the next post.</li>
+<li>Then we added a /call command for XMPP account which sends an IQ stanza to the receiver. We had an XML Stanza prototype we need to generate. So we created a sdp2xml() function which parses the plaintext offer and generates a suitable XML stanza for each offer it receives. It is a confusing part because different machines generates different offer depending on the media type present, so creating an equivalent stanza is tricky.</li>
+<li>In the meantime I got confused between using a <a href="http://xmpp.org/extensions/inbox/jingle-sdp.html" target="_blank" rel="external">Draft XEP: Jingle SDP Content</a> and XEP: 0320 and badly messed things up. We finally made a good decision on going with the standard 0320.</li>
+<li>The next part was to test the function developed. An xpcshell-test has been written for the sdp2xml().</li>
+</ol>
+<p>The next task is to create a real SDP call offer whenever caller makes a call request —&gt; covert it to IQ Stanza. For this we have decided to add a call button (generalized way of adding it is already developed) , create an interface between the UI and the XMPP backend which passes the offer as an argument to the sdp2xml() and then send the stanza. :)</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=To send a message fr"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/gsoc-report-understanding-xep-and-rfc-maze/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

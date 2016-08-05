@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GSoC Progress Report | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/gsoc-progress-report/">GSoC Progress Report</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">July 22 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>The last week was dedicated mostly for making changes and landing the earlier bugs so that I can proceed with other patches already waiting to be fixed. Here is a list of the things I did in the past week:</p>
+<ul>
+<li>Made some necessary changes for the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=975542" target="_blank" rel="external">Bug: 975542 - Set user icon using webcam</a> and it was added to the nightlies.</li>
+<li>Fixed the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1004930" target="_blank" rel="external">Bug: 1004930 - Generic way to add toolbarbuttons</a>. The toolbarbuttons are now aligned with the displayName which fixed the bottom border issue and it now has a better CSS too.</li>
+<li>Since <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1018060" target="_blank" rel="external">Bug:1018060 - Add video call support for XMPP</a> is probably the next patch which is going to land so it should be ready. I changed how the xml2sdp() generated the Jingle XML stanza from the SDP offer. The method looks clearer and is easy to understand now.</li>
+<li>Currently I’m working on the <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1027779" target="_blank" rel="external">Bug:1027779 - Inability to send call notification if no conversation has taken place before</a>. This happens because the target resource has not been set and the user doesn’t know which is the most suitable resource to whom the notification should be sent. For this I need to find the most preferred resource available (i.e. the one for which voice call is supported) and then send the notification to only that resource.</li>
+</ul>
+<p>In the upcoming week I’ll fix the Bug 1027779 and also try to land the video call patch.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=The last week was de"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/gsoc-progress-report/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

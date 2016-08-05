@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Community Bonding Report | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/community-bonding-report/">Community Bonding Report</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">May 21 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>After being selected I had one fundamental task for the community bonding period, to become familiar with the <a href="http://hg.mozilla.org/comm-central/file/" target="_blank" rel="external">Instantbird codebase</a> as much as possible. The discussion about the project with my mentor <a href="https://mozillians.org/en-US/u/benediktp/" target="_blank" rel="external">Benedikt P.[:Mic]</a> and the Instantbird team lies in the <a href="https://etherpad.mozilla.org/ib-webrtc" target="_blank" rel="external">Etherpad</a> and a track of my progress and mockups I created for the project resides in the <a href="https://trello.com/b/knpAD9if/ib-webrtc-2014" target="_blank" rel="external">Trello</a> page.</p>
+<p>I started working on the enhancement <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=975542" target="_blank" rel="external">Bug 975542</a> I filed. It taught me some of the most basic things about writing good code, XUL, CSS, getUserMedia, mozGetUserMedia (freaked us out for a day), File.write. Eventually it took more time than we thought as new features kept brainstorming but still I’m happy as its almost ready and would be added in the nightlies soon.</p>
+<ul>
+<li>Wrote XUL code for creating a panel for the enhancement.</li>
+<li>Create video frame in canvas –&gt; capture a single frame –&gt; clip it to suit as square icon.</li>
+<li>Write the image to a tmp image file and copy it to profile directory –&gt; remove tmp file (we are generous ;) ) –&gt; set the image as user icon (already had code for that).</li>
+<li>Media devices detection using mozGetUserMediaDevices to disable the button if no video capturing device found. I’ll blog about it someday.</li>
+</ul>
+<p>Florian has already written a patch a year ago for video call using WebRTC in Thunderbird Chat. I looked at it and had an understanding about how the RTCPeerConnection API would work. Also the enhancement <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1004930" target="_blank" rel="external">Bug 1004930</a> to develop a generic way to add action buttons to a conversation has been added with my project.</p>
+<p>Do not use vague language, say “No I don’t understand” if you don’t understand it, take pleasure in saying thanks :) , pastebin it, Firefox pref settings are life saver… are few other lessons I learnt during CB which I’m sure is going to help me in future.</p>
+<p>May the force <code>to write more code + more tests + more comments</code> be with you.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=After being selected"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/community-bonding-report/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

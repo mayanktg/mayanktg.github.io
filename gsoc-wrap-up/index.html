@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GSoC Wrap-up | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/gsoc-wrap-up/">GSoC Wrap-up</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">July 22 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>Its been long since I have blogged about my GSoC progress. I had been performing changes and nits for my patches so that they could land soon. I’m summarizing about some of my patches. You can check my code by visiting the Bug links.</p>
+<ul>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1004930" target="_blank" rel="external">Bug:1004930 - Generic way to add toolbarbutton:</a>After fixing the issues about the display of the buttons when viewed at smaller window size the patch is ready to land. It has greatly reduced the steps taken to add buttons in the conversation for different purposes/features.</li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1018060" target="_blank" rel="external">Bug:1018060 - Add video call support for XMPP:</a>Earlier I was using HTML Document to create the video call window, but Florian had a better idea that we should be using XBL binding for creating the UI. Thus, the UI now uses a simpler code to add the video call elements needed. I made further changes to the sdp2Xml and xml2Sdp and the backend XMPP code.</li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1025150" target="_blank" rel="external">Bug:1025150 - Implement Entity Capabilities in XMPP:</a>This patch now also stores capabilities info received from each resource and changes the availabilityDetails based on the current preferred resource. I made other changes to it as per the review comments.</li>
+<li><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1027771" target="_blank" rel="external">Bug:1027771 - Add fullscreen support for video calls:</a>This is a WIP using which we can now switch to fullscreen mode during a video call.</li>
+</ul>
+<p>Next I need to add better interface for the videoc calls when the user is using a wider window, implement Audio call support and to add suppport for hold/mute during video/audio calls.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=Its been long since "
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/gsoc-wrap-up/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

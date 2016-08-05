@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Implementing Entitiy Discovery - Part 2 | code-it-out</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="/about">about</a>
+    
+  
+    
+      <a href="/atom.xml">rss</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/implementing-entitiy-discovery-part-2/">Implementing Entitiy Discovery - Part 2</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">July 15 2014</p>
+  </section>
+
+  <section class="article-entry">
+    <p>Finally entity capability implementation for XMPP is complete and is ready for review cycles. We have added the video discovery capability. As discussed in <a href="http://mayanktg.github.io/implementing-entitiy-discovery-part-1/">Part 1</a> after adding the receive capability and decoding it now we move forward for the sending part.</p>
+<p>We need to send a <code>c</code> node along with the <code>presence</code> stanza to the user. We create a presence stanza like:<br><figure class="highlight xml"><figcaption><span>Presence stanza</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">presence</span> <span class="attr">xmlns</span>=<span class="string">"jabber:client"</span> <span class="attr">id</span>=<span class="string">"6"</span> <span class="attr">xml:lang</span>=<span class="string">"en"</span> <span class="attr">from</span>=<span class="string">"xyz@abc.com/Instantbird"</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">show</span> <span class="attr">xmlns</span>=<span class="string">"jabber:client"</span>&gt;</span></div><div class="line">  away</div><div class="line"> <span class="tag">&lt;/<span class="name">show</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">status</span> <span class="attr">xmlns</span>=<span class="string">"jabber:client"</span>&gt;</span></div><div class="line">  I am currently away from the computer.</div><div class="line"> <span class="tag">&lt;/<span class="name">status</span>&gt;</span></div><div class="line"> <span class="tag">&lt;<span class="name">c</span> <span class="attr">xmlns</span>=<span class="string">"http://jabber.org/protocol/caps"</span> <span class="attr">ver</span>=<span class="string">"5guaTqssTb94FuNI4uMKvCOspHE="</span> <span class="attr">hash</span>=<span class="string">"sha-1"</span> <span class="attr">node</span>=<span class="string">"http://instantbird.com"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">presence</span>&gt;</span></div></pre></td></tr></table></figure><br>On receiving this stanza the machine performs the check as previously discussed in last post and if needed sends a service discovery request stanza.<br><figure class="highlight xml"><figcaption><span>service discovery request stanza</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">iq</span> <span class="attr">type</span>=<span class="string">"get"</span> <span class="attr">id</span>=<span class="string">"id-ig57r"</span> <span class="attr">to</span>=<span class="string">"xyz@abc.com/Instantbird"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">query</span> <span class="attr">xmlns</span>=<span class="string">"http://jabber.org/protocol/disco#info"</span> <span class="attr">node</span>=<span class="string">"http://instantbird.com#5guaTqssTb94FuNI4uMKvCOspHE="</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">iq</span>&gt;</span></div></pre></td></tr></table></figure><br>Now when a client receives this stanza it has to generate its own service capability stanza and send this to the user as a IQ result. Currently we use a <code>generateServiceDiscovery()</code> :<br><figure class="highlight javascript"><figcaption><span>Service capability function</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">generateServiceDiscovery: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> queryStanza = Stanza.node(<span class="string">"query"</span>, <span class="literal">null</span>, &#123;xmlns: <span class="string">"http://jabber.org/protocol/disco#info"</span>,</div><div class="line">                                                node: <span class="string">"http://instantbird.com"</span>&#125;);</div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"identity"</span>, <span class="literal">null</span>, &#123;type: <span class="string">"pc"</span>,</div><div class="line">                                                      name: <span class="string">"Instantbird"</span>,</div><div class="line">                                                      category: <span class="string">"client"</span>&#125;));</div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"feature"</span>, <span class="literal">null</span>, &#123;<span class="keyword">var</span>: <span class="string">"urn:xmpp:jingle:apps:rtp:video"</span>&#125;));</div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"feature"</span>, <span class="literal">null</span>, &#123;<span class="keyword">var</span>: <span class="string">"urn:xmpp:jingle:apps:rtp:audio"</span>&#125;));</div><div class="line"></div><div class="line">  <span class="comment">// Added to maintain interportability with other clients.</span></div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"feature"</span>, <span class="literal">null</span>, &#123;<span class="keyword">var</span>: <span class="string">"http://www.google.com/xmpp/protocol/voice/v1"</span>&#125;));</div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"feature"</span>, <span class="literal">null</span>, &#123;<span class="keyword">var</span>: <span class="string">"http://www.google.com/xmpp/protocol/video/v1"</span>&#125;));</div><div class="line">  queryStanza.addChild(Stanza.node(<span class="string">"feature"</span>, <span class="literal">null</span>, &#123;<span class="keyword">var</span>: <span class="string">"http://www.google.com/xmpp/protocol/camera/v1"</span>&#125;));</div><div class="line"></div><div class="line">  <span class="keyword">return</span> queryStanza;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>Now one of the prime task is to be able to actually detect our own video/audio devices and perform the video call only if the device is capable. For this we have used a callback method detectVideocapability() which detects the audio and video devices using <code>mozGetUserMediaDevices</code> and proceeds for the call only if the media devices are present.<br><figure class="highlight xml"><figcaption><span>Media device discovery</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">method</span> <span class="attr">name</span>=<span class="string">"detectVideoCapability"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">parameter</span> <span class="attr">name</span>=<span class="string">"aSuccessCallback"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">parameter</span> <span class="attr">name</span>=<span class="string">"aErrorCallback"</span>/&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  &lt;![CDATA[</div><div class="line">      navigator.mozGetUserMedia(&#123;audio: false, video: false&#125;,</div><div class="line">                                function() &#123;&#125;, function() &#123;&#125;);</div><div class="line"></div><div class="line">      navigator.mozGetUserMediaDevices(&#123;video: true, audio: true&#125;,</div><div class="line">                                       aSuccessCallback,</div><div class="line">                                       aErrorCallback);</div><div class="line">  ]]&gt;</div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">method</span>&gt;</span></div></pre></td></tr></table></figure><br>The WIP for the entity capability implementation can be tracked at <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1025150" target="_blank" rel="external">Bug 1025150</a>.</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> code-it-out </p>
+      <p class="subtitle"> Mayank Kumar </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="https://twitter.com/intent/tweet?text=Finally entity capab"
+>
+  Tweet
+</a>
+
+<script>
+  window.twttr = (function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0],
+    t = window.twttr || {};
+  if (d.getElementById(id)) return t;
+  js = d.createElement(s);
+  js.id = id;
+  js.src = "https://platform.twitter.com/widgets.js";
+  js.async = true;
+  fjs.parentNode.insertBefore(js, fjs);
+
+  t._e = [];
+  t.ready = function(f) {
+    t._e.push(f);
+  };
+
+  return t;
+}(document, "script", "twitter-wjs"));
+</script>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'mayanktg';
+  
+  var disqus_url = 'https://mayanktg.github.io/implementing-entitiy-discovery-part-2/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
