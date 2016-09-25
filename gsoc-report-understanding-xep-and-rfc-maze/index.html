@@ -41,7 +41,7 @@
   </section>
 
   <section class="article-entry">
-    <p>To send a message from one client to the other we need a signaling channel which provides a path for data transfer over the network. While working with WebRTC PeerConnection API for a web app no one worries about the channel since the SDP (Session Description Protocol) “offer” and “answer” is sent over a plaintext channel. But to implement RTCPeerConnection API for an XMPP account we need to send the message in the form of XML stanza through the Jingle channel. So the caller has to first convert the SDP offer into an XML stanza, send it over Jingle, callee receives the stanza, converts it back to original SDP offer and then repeat the same for his answer to the request.</p>
+    <script src="/assets/js/DPlayer.min.js"> </script><p>To send a message from one client to the other we need a signaling channel which provides a path for data transfer over the network. While working with WebRTC PeerConnection API for a web app no one worries about the channel since the SDP (Session Description Protocol) “offer” and “answer” is sent over a plaintext channel. But to implement RTCPeerConnection API for an XMPP account we need to send the message in the form of XML stanza through the Jingle channel. So the caller has to first convert the SDP offer into an XML stanza, send it over Jingle, callee receives the stanza, converts it back to original SDP offer and then repeat the same for his answer to the request.</p>
 <p>Here is how we broke this up and made it the Jingle way.</p>
 <ol>
 <li>The first step was to get the plaintext <a href="http://tools.ietf.org/html/rfc4566.html#section-1" target="_blank" rel="external">SDP offer</a> and understand what each line and of it means, then create a suitable XML IQ Stanza for the same. We then finalized on using the <a href="http://xmpp.org/extensions/xep-0320.html" target="_blank" rel="external">XEP-0320: Use of DTLS-SRTP in Jingle Sessions</a> for creating the appropriate Stanza. We are also dependent on XEPs <a href="http://xmpp.org/extensions/xep-0167.html" target="_blank" rel="external">0167</a>, <a href="http://xmpp.org/extensions/xep-0293.html#sdp-mapping" target="_blank" rel="external">0293</a> and <a href="http://xmpp.org/extensions/xep-0294.html#sdp-mapping" target="_blank" rel="external">0294</a>. It needs a separate blogpost to explain about how the mapping was done as the information though available is sparse. I’ll write one in the next post.</li>
@@ -56,7 +56,7 @@
 
   <div class="sharing grid">
   <section class="profile grid-item grid">
-    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <img class="avatar" src="https://raw.githubusercontent.com/mayanktg/blog/master/source/images/avatar.png" alt="avatar" />
     <div class="grid-item">
       <p class="title"> code-it-out </p>
       <p class="subtitle"> Mayank Kumar </p>
@@ -69,7 +69,7 @@
   class="twitter-share-button"
   data-size="large"
   data-via="DrakeLeung"
-  href="https://twitter.com/intent/tweet?text=To send a message fr"
+  href="https://twitter.com/intent/tweet?text=ript src="/assets/js"
 >
   Tweet
 </a>

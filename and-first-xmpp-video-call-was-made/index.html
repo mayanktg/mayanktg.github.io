@@ -41,7 +41,7 @@
   </section>
 
   <section class="article-entry">
-    <p>Until last week there used to be a harcoded offer and we converted this offer to XML Stanza and then retrieve it back. Moving forward we added the WebRTC methods in the conversation.xml binding which would generate the SDP offer in the DOMWindow. But the problem was, “How will the generated offer reach the prpl?”. The solution was simple but not straight forward, I had to create a method in the interface <code>prplIConvIM</code> so that the method becomes available at the <code>xmpp.jsm</code> too. I followed the standard approach as directed i.e. added a method startCall() in the <conde>prplIConv</conde> interface, set default at <code>jsProtoHelper.jsm</code> and then defined also at <code>prplIConvIM</code> since it was the interface the startCall method in converation binding was going to use. I was able to generate the offer and the client was able to receive and convert the same.</p>
+    <script src="/assets/js/DPlayer.min.js"> </script><p>Until last week there used to be a harcoded offer and we converted this offer to XML Stanza and then retrieve it back. Moving forward we added the WebRTC methods in the conversation.xml binding which would generate the SDP offer in the DOMWindow. But the problem was, “How will the generated offer reach the prpl?”. The solution was simple but not straight forward, I had to create a method in the interface <code>prplIConvIM</code> so that the method becomes available at the <code>xmpp.jsm</code> too. I followed the standard approach as directed i.e. added a method startCall() in the <conde>prplIConv</conde> interface, set default at <code>jsProtoHelper.jsm</code> and then defined also at <code>prplIConvIM</code> since it was the interface the startCall method in converation binding was going to use. I was able to generate the offer and the client was able to receive and convert the same.</p>
 <p>The startCall method in the conversation binding looked like this</p>
 <p><code>&lt;body&gt;
     &lt;![CDATA[
@@ -70,7 +70,7 @@
 
   <div class="sharing grid">
   <section class="profile grid-item grid">
-    <img class="avatar" src="http://7xrcp8.com1.z0.glb.clouddn.com/avatar.png" alt="avatar" />
+    <img class="avatar" src="https://raw.githubusercontent.com/mayanktg/blog/master/source/images/avatar.png" alt="avatar" />
     <div class="grid-item">
       <p class="title"> code-it-out </p>
       <p class="subtitle"> Mayank Kumar </p>
@@ -83,7 +83,7 @@
   class="twitter-share-button"
   data-size="large"
   data-via="DrakeLeung"
-  href="https://twitter.com/intent/tweet?text=Until last week ther"
+  href="https://twitter.com/intent/tweet?text=ript src="/assets/js"
 >
   Tweet
 </a>

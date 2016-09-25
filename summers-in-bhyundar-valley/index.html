@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>GSoC Report - Reaching the Midterm | code-it-out</title>
+  <title>Summers in Bhyundar Valley | code-it-out</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/app.css">
@@ -33,23 +33,16 @@
   <main class="post">
   <article>
   <h1 class="article-title">
-    <a href="/gsoc-report-reaching-the-midterm/">GSoC Report - Reaching the Midterm</a>
+    <a href="/summers-in-bhyundar-valley/">Summers in Bhyundar Valley</a>
   </h1>
 
   <section class="article-meta">
-    <p class="article-date">June 25 2014</p>
+    <p class="article-date">September 24 2016</p>
   </section>
 
   <section class="article-entry">
-    <script src="/assets/js/DPlayer.min.js"> </script><p>Proceeding further the next priority task was to first add a “call disconnect” support to the video call and then it was to remove the auto connecting calls and instead send the notification to the callee whether to Accept/Reject the call.</p>
-<ul>
-<li>For adding the call disconnect support I created a “endCall” menthod in the conversation binding which restores the UI to the normal chat convresation state, stops the ongoing peerconnection and then calls the “endcall()” of the prpl to send the “session-terminate” IQ stanza to the callee. When the callee receives a session-terminate stanza it also does the same excluding the sending the stanza part.</li>
-<li>Now to send call notification I used <code>notificationbox</code> which popups a notification bar to the callee with an “accept” and “reject” button.</li>
-<li>I spent a day improving the UI of the call and using CSS’s <code>calc()</code> to dynamically vary the size instead of using the resizeVideo method I defined earlier, added a close call button and an ongoing call state to the video call button.</li>
-<li>In the meantime :aleth suggested to add a countdown call timer which would disconnect the call automatically on both ends if unanswered for 30 sec. I implemented that too using <code>setTimeout</code> and <code>clearTimeout</code> functions.</li>
-</ul>
-<p>The next milestone is to get the patch ready and also land the generic buttons patch. We are also suppose to add Entity discovery which would enable Video/Voice call iff the compatible device is detected.</p>
-<p>Keeping XMPP Call project aside I worked on the bug to build a generic way to add icons to the toolbar. Plus the best part of this week was that I met Saurabh and Nihanth who are also the other GSoCers @ Instantbird.</p>
+    <script src="/assets/js/DPlayer.min.js"> </script><p>I often look back at my travels and try to recall the moments that have changed something in me, helped me overcome my deepest insecurities, accept the realities and made me stronger. Taking my ninth trip (the longest one) this the year I wanted it to be special so I decided it would be without friends, without family. I wanted to figure out who I am when no is looking. Do I need to change? The answer was yes indeed.</p>
+<p>On July 21st I took a<br><div id="dplayer0" class="dplayer" style="margin-bottom: 20px;"></div><script>var dplayer0 = new DPlayer({"element":document.getElementById("dplayer0"),"video":{"url":"http://sendvid.com/rjq3s2ah"}});</script></p>
 
   </section>
 </article>
@@ -109,7 +102,7 @@
 <script>
   var disqus_shortname = 'mayanktg';
   
-  var disqus_url = 'https://mayanktg.github.io/gsoc-report-reaching-the-midterm/';
+  var disqus_url = 'https://mayanktg.github.io/summers-in-bhyundar-valley/';
   
   (function(){
     var dsq = document.createElement('script');
